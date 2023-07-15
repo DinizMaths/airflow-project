@@ -8,35 +8,34 @@ Apache Airflow is a workflow and scheduling platform that allows you to create, 
 
 By using Airflow, you can create a Directed Acyclic Graph (DAG) to represent the desired pipeline.
 
-## aaa
+## TEST
+
+At the directory of the project
 
 ```bash
-virtualenv venv
+curl -Lf0 https://airflow.apache.org/docs/apache-airflow/2.6.3/docker-compose.yaml
 ```
 
-Enter
-```bash
-source venv/bin/activate
-```
 
-download airflow
 ```bash
-pip install apache-airflow
+mkdir ./dags ./logs ./plugins
 ```
 
 ```bash
-airflow db init
+echo -e "AIRFLOW_UID=$(id -u)\nAIRFLOW_GID=0" > .env
 ```
 
 ```bash
-airflow users create --username <username> --firstname <seu nome> --lastname <seu sobrenome> --role Admin --email <seu email>
-```
-
-2 terminals 
-```bash
-airflow webserver
+docker-compose up airflow-init
 ```
 
 ```bash
-airflow scheduler
+docker-compose up -d
 ```
+
+```bash
+Username: airflow
+Password: airflow
+```
+
+AIRFLOW__CORE__LOAD_EXAMPLES: 'false'

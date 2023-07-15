@@ -1,0 +1,39 @@
+[2023-07-15T22:41:26.694+0000] {processor.py:157} INFO - Started process (PID=234) to work on /opt/airflow/dags/main_dag.py
+[2023-07-15T22:41:26.695+0000] {processor.py:826} INFO - Processing file /opt/airflow/dags/main_dag.py for tasks to queue
+[2023-07-15T22:41:26.696+0000] {logging_mixin.py:150} INFO - [2023-07-15T22:41:26.695+0000] {dagbag.py:541} INFO - Filling up the DagBag from /opt/airflow/dags/main_dag.py
+[2023-07-15T22:41:26.699+0000] {logging_mixin.py:150} INFO - [2023-07-15T22:41:26.698+0000] {dagbag.py:350} ERROR - Failed to import: /opt/airflow/dags/main_dag.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/models/dagbag.py", line 346, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 728, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/opt/airflow/dags/main_dag.py", line 9, in <module>
+    with DAG(dag_id="main_dag", desciption="This is the main DAG", start_date=datetime(2023, 1, 1), default_args=default_args) as dag:
+TypeError: __init__() got an unexpected keyword argument 'desciption'
+[2023-07-15T22:41:26.699+0000] {processor.py:838} WARNING - No viable dags retrieved from /opt/airflow/dags/main_dag.py
+[2023-07-15T22:41:26.717+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/main_dag.py took 0.026 seconds
+[2023-07-15T22:41:56.876+0000] {processor.py:157} INFO - Started process (PID=246) to work on /opt/airflow/dags/main_dag.py
+[2023-07-15T22:41:56.879+0000] {processor.py:826} INFO - Processing file /opt/airflow/dags/main_dag.py for tasks to queue
+[2023-07-15T22:41:56.880+0000] {logging_mixin.py:150} INFO - [2023-07-15T22:41:56.879+0000] {dagbag.py:541} INFO - Filling up the DagBag from /opt/airflow/dags/main_dag.py
+[2023-07-15T22:41:56.882+0000] {logging_mixin.py:150} INFO - [2023-07-15T22:41:56.881+0000] {dagbag.py:350} ERROR - Failed to import: /opt/airflow/dags/main_dag.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/models/dagbag.py", line 346, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 728, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/opt/airflow/dags/main_dag.py", line 9, in <module>
+    with DAG(dag_id="main_dag", desciption="This is the main DAG", start_date=datetime(2023, 1, 1), default_args=default_args) as dag:
+TypeError: __init__() got an unexpected keyword argument 'desciption'
+[2023-07-15T22:41:56.882+0000] {processor.py:838} WARNING - No viable dags retrieved from /opt/airflow/dags/main_dag.py
+[2023-07-15T22:41:56.901+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/main_dag.py took 0.027 seconds
+[2023-07-15T22:42:18.008+0000] {processor.py:157} INFO - Started process (PID=251) to work on /opt/airflow/dags/main_dag.py
+[2023-07-15T22:42:18.009+0000] {processor.py:826} INFO - Processing file /opt/airflow/dags/main_dag.py for tasks to queue
+[2023-07-15T22:42:18.010+0000] {logging_mixin.py:150} INFO - [2023-07-15T22:42:18.009+0000] {dagbag.py:541} INFO - Filling up the DagBag from /opt/airflow/dags/main_dag.py
+[2023-07-15T22:42:18.022+0000] {processor.py:836} INFO - DAG(s) dict_keys(['main_dag']) retrieved from /opt/airflow/dags/main_dag.py
+[2023-07-15T22:42:18.167+0000] {logging_mixin.py:150} INFO - [2023-07-15T22:42:18.167+0000] {manager.py:504} INFO - Created Permission View: can read on DAG:main_dag
+[2023-07-15T22:42:18.179+0000] {logging_mixin.py:150} INFO - [2023-07-15T22:42:18.179+0000] {manager.py:504} INFO - Created Permission View: can edit on DAG:main_dag
+[2023-07-15T22:42:18.188+0000] {logging_mixin.py:150} INFO - [2023-07-15T22:42:18.188+0000] {manager.py:504} INFO - Created Permission View: can delete on DAG:main_dag
+[2023-07-15T22:42:18.205+0000] {logging_mixin.py:150} INFO - [2023-07-15T22:42:18.204+0000] {dag.py:2742} INFO - Sync 1 DAGs
+[2023-07-15T22:42:18.217+0000] {logging_mixin.py:150} INFO - [2023-07-15T22:42:18.217+0000] {dag.py:2763} INFO - Creating ORM DAG for main_dag
+[2023-07-15T22:42:18.228+0000] {logging_mixin.py:150} INFO - [2023-07-15T22:42:18.228+0000] {dag.py:3508} INFO - Setting next_dagrun for main_dag to 2023-01-01T00:00:00+00:00, run_after=2023-01-02T00:00:00+00:00
+[2023-07-15T22:42:18.249+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/main_dag.py took 0.244 seconds
