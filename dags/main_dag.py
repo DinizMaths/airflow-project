@@ -184,10 +184,63 @@ def count_cdf_figure(**kwargs):
   plt.savefig("figures/cumulative_density_function.png", transparent=True, dpi=600, bbox_inches="tight")
 
 def correlation_figure(**kwargs):
-  pass
+  import networkx as nx
+  import matplotlib.pyplot as plt
+  import seaborn as sns
+  import pandas as pd
+
+  graph = nx.read_graphml(f"data/{kwargs['file_name']}.graphml")
+
+  bc = pd.Series(nx.betweenness_centrality(graph))
+  dc = pd.Series(nx.degree_centrality(graph))
+  ec = pd.Series(nx.eigenvector_centrality(graph))
+  cc = pd.Series(nx.closeness_centrality(graph))
+
+  df = pd.DataFrame.from_dict({
+    "Betweenness": bc,
+    "Degree":      dc,
+    "EigenVector": ec,
+    "Closeness":   cc
+  })
+
+  df.reset_index(inplace=True, drop=True)
+
+  fig = sns.PairGrid(df)
+
+  fig.map_upper(sns.scatterplot)
+  fig.map_lower(sns.kdeplot, cmap="Reds_r")
+  fig.map_diag(sns.kdeplot, lw=2, legend=False)
+
+  plt.savefig("figures/all.png", transparent=True, dpi=800, bbox_inches="tight")
 
 def k_core_shell_figure(**kwargs):
-  pass
+  import matplotlib.patches as mpatches
+  import networkx as nx
+  import matplotlib.pyplot as plt
+  import seaborn as sns
+
+  graph = nx.read_graphml(f"data/{kwargs['file_name']}.graphml")
+  
+  fig, ax = plt.subplots(1, 1, figsize=(10, 8))
+
+  graph_core_2 = nx.k_shell(graph, 2)
+  graph_core_3 = nx.k_core(graph, 3)
+
+  pos = nx.spring_layout(graph, seed=123426789, k=0.3)
+
+  nx.draw_networkx_edges(graph, pos=pos, alpha=0.4, ax=ax)
+
+  nodes = nx.draw_networkx_nodes(graph,        pos=pos, node_color="#333333")
+  nodes = nx.draw_networkx_nodes(graph_core_2, pos=pos, node_color="blue")
+  nodes = nx.draw_networkx_nodes(graph_core_3, pos=pos, node_color="red")
+
+  red_patch  = mpatches.Patch(color='red',  label='3-core')
+  blue_patch = mpatches.Patch(color='blue', label='5-shell')
+
+  plt.legend(handles=[red_patch, blue_patch])
+
+  plt.axis("off")
+  plt.savefig("figures/k-core_sociopatterns.png", transparent=True, dpi=600)
 
 
 with DAG(dag_id="main_dag", description="This is the main DAG", default_args=default_args) as dag:

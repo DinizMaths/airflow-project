@@ -8,13 +8,15 @@ Apache Airflow is a workflow and scheduling platform that allows you to create, 
 
 By using Airflow, you can create a Directed Acyclic Graph (DAG) to represent the desired pipeline.
 
-## TEST
+## Docker
 
-To run this Project
+To run this project you will need to install [Docker](https://www.docker.com/products/docker-desktop/) previously.
 
 ```bash
 docker-compose up
 ```
+
+## Hands On
 
 ```bash
 Username: airflow
