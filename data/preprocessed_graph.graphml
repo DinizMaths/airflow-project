@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd"><key id="d0" for="node" attr.name="class" attr.type="long"/>
+<graph edgedefault="undirected"><node id="a">
+  <data key="d0">1</data>
+</node>
+<node id="d">
+  <data key="d0">2</data>
+</node>
+<node id="b">
+  <data key="d0">1</data>
+</node>
+<node id="e">
+  <data key="d0">3</data>
+</node>
+<node id="c">
+  <data key="d0">1</data>
+</node>
+<node id="i">
+  <data key="d0">4</data>
+</node>
+<node id="f">
+  <data key="d0">1</data>
+</node>
+<node id="h">
+  <data key="d0">4</data>
+</node>
+<node id="g">
+  <data key="d0">1</data>
+</node>
+<node id="j">
+  <data key="d0">2</data>
+</node>
+<node id="l">
+  <data key="d0">5</data>
+</node>
+<node id="n">
+  <data key="d0">5</data>
+</node>
+<node id="m">
+  <data key="d0">2</data>
+</node>
+<node id="k">
+  <data key="d0">6</data>
+</node>
+<node id="o">
+  <data key="d0">5</data>
+</node>
+<node id="u">
+  <data key="d0">3</data>
+</node>
+<node id="s">
+  <data key="d0">7</data>
+</node>
+<node id="p">
+  <data key="d0">3</data>
+</node>
+<node id="q">
+  <data key="d0">1</data>
+</node>
+<node id="r">
+  <data key="d0">1</data>
+</node>
+<edge source="a" target="d"/>
+<edge source="d" target="i"/>
+<edge source="b" target="e"/>
+<edge source="e" target="c"/>
+<edge source="e" target="i"/>
+<edge source="i" target="h"/>
+<edge source="i" target="l"/>
+<edge source="f" target="h"/>
+<edge source="h" target="g"/>
+<edge source="h" target="j"/>
+<edge source="j" target="n"/>
+<edge source="l" target="m"/>
+<edge source="l" target="n"/>
+<edge source="l" target="k"/>
+<edge source="l" target="o"/>
+<edge source="n" target="k"/>
+<edge source="n" target="o"/>
+<edge source="n" target="s"/>
+<edge source="m" target="u"/>
+<edge source="k" target="o"/>
+<edge source="k" target="p"/>
+<edge source="k" target="s"/>
+<edge source="k" target="u"/>
+<edge source="o" target="p"/>
+<edge source="o" target="s"/>
+<edge source="u" target="s"/>
+<edge source="s" target="p"/>
+<edge source="s" target="q"/>
+<edge source="s" target="r"/>
+</graph></graphml>

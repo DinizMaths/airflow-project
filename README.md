@@ -10,46 +10,13 @@ By using Airflow, you can create a Directed Acyclic Graph (DAG) to represent the
 
 ## TEST
 
-At the directory of the project
+To run this Project
 
 ```bash
-curl -Lf0 https://airflow.apache.org/docs/apache-airflow/2.6.3/docker-compose.yaml
-```
-
-
-```bash
-mkdir ./dags ./logs ./plugins
-```
-
-```bash
-echo -e "AIRFLOW_UID=$(id -u)\nAIRFLOW_GID=0" > .env
-```
-
-```bash
-docker-compose up airflow-init
-```
-
-```bash
-docker-compose up -d
+docker-compose up
 ```
 
 ```bash
 Username: airflow
 Password: airflow
-```
-
-em docker-compose.yaml
-```bash
-AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
-```
-
-instalar em
-```bash
-docker exec -it airflow-project_airflow-scheduler_1 bash
-```
-
-```bash
-pip install wikipedia
-pip install networkx
-mkdir data/
 ```

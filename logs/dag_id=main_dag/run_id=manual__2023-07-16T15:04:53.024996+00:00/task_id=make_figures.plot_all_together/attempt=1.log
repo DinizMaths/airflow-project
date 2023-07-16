@@ -1,0 +1,23 @@
+[2023-07-16T15:05:17.694+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: main_dag.make_figures.plot_all_together manual__2023-07-16T15:04:53.024996+00:00 [queued]>
+[2023-07-16T15:05:17.705+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: main_dag.make_figures.plot_all_together manual__2023-07-16T15:04:53.024996+00:00 [queued]>
+[2023-07-16T15:05:17.705+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 1
+[2023-07-16T15:05:18.059+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): make_figures.plot_all_together> on 2023-07-16 15:04:53.024996+00:00
+[2023-07-16T15:05:18.066+0000] {standard_task_runner.py:57} INFO - Started process 481 to run task
+[2023-07-16T15:05:18.070+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'main_dag', 'make_figures.plot_all_together', 'manual__2023-07-16T15:04:53.024996+00:00', '--job-id', '517', '--raw', '--subdir', 'DAGS_FOLDER/main_dag.py', '--cfg-path', '/tmp/tmppejeaj8q']
+[2023-07-16T15:05:18.075+0000] {standard_task_runner.py:85} INFO - Job 517: Subtask make_figures.plot_all_together
+[2023-07-16T15:05:18.270+0000] {task_command.py:410} INFO - Running <TaskInstance: main_dag.make_figures.plot_all_together manual__2023-07-16T15:04:53.024996+00:00 [running]> on host 1696d5f40b5e
+[2023-07-16T15:05:18.617+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='main_dag' AIRFLOW_CTX_TASK_ID='make_figures.plot_all_together' AIRFLOW_CTX_EXECUTION_DATE='2023-07-16T15:04:53.024996+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-07-16T15:04:53.024996+00:00'
+[2023-07-16T15:05:19.837+0000] {font_manager.py:1443} INFO - generated new fontManager
+[2023-07-16T15:05:20.227+0000] {taskinstance.py:1824} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 181, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 198, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/main_dag.py", line 44, in all_together
+    graph = nx.read_edgelist(f"data/{kwargs['file_name']}.txt", create_using=nx.Graph(), nodetype=int)
+NameError: name 'kwargs' is not defined
+[2023-07-16T15:05:20.239+0000] {taskinstance.py:1350} INFO - Marking task as FAILED. dag_id=main_dag, task_id=make_figures.plot_all_together, execution_date=20230716T150453, start_date=20230716T150517, end_date=20230716T150520
+[2023-07-16T15:05:20.276+0000] {standard_task_runner.py:109} ERROR - Failed to execute job 517 for task make_figures.plot_all_together (name 'kwargs' is not defined; 481)
+[2023-07-16T15:05:20.289+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 1
+[2023-07-16T15:05:20.320+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check
