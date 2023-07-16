@@ -1,0 +1,22 @@
+[2023-07-16T03:24:42.216+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: main_dag.read_data manual__2023-07-16T03:24:33.180166+00:00 [queued]>
+[2023-07-16T03:24:42.225+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: main_dag.read_data manual__2023-07-16T03:24:33.180166+00:00 [queued]>
+[2023-07-16T03:24:42.225+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 1
+[2023-07-16T03:24:42.240+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): read_data> on 2023-07-16 03:24:33.180166+00:00
+[2023-07-16T03:24:42.244+0000] {standard_task_runner.py:57} INFO - Started process 438 to run task
+[2023-07-16T03:24:42.247+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'main_dag', 'read_data', 'manual__2023-07-16T03:24:33.180166+00:00', '--job-id', '434', '--raw', '--subdir', 'DAGS_FOLDER/main_dag.py', '--cfg-path', '/tmp/tmpkza09ep9']
+[2023-07-16T03:24:42.248+0000] {standard_task_runner.py:85} INFO - Job 434: Subtask read_data
+[2023-07-16T03:24:42.295+0000] {task_command.py:410} INFO - Running <TaskInstance: main_dag.read_data manual__2023-07-16T03:24:33.180166+00:00 [running]> on host 75cbd5457fb2
+[2023-07-16T03:24:42.383+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='main_dag' AIRFLOW_CTX_TASK_ID='read_data' AIRFLOW_CTX_EXECUTION_DATE='2023-07-16T03:24:33.180166+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-07-16T03:24:33.180166+00:00'
+[2023-07-16T03:24:42.383+0000] {taskinstance.py:1824} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 181, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 198, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/main_dag.py", line 32, in read_graph
+    g = nx.read_edgelist(f"data/{kwargs['name']}.txt", create_using=networkx.Graph(), nodetype=int)
+NameError: name 'nx' is not defined
+[2023-07-16T03:24:42.392+0000] {taskinstance.py:1350} INFO - Marking task as FAILED. dag_id=main_dag, task_id=read_data, execution_date=20230716T032433, start_date=20230716T032442, end_date=20230716T032442
+[2023-07-16T03:24:42.404+0000] {standard_task_runner.py:109} ERROR - Failed to execute job 434 for task read_data (name 'nx' is not defined; 438)
+[2023-07-16T03:24:42.418+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 1
+[2023-07-16T03:24:42.437+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check

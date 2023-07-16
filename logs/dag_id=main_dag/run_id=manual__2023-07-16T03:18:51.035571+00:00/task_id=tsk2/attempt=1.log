@@ -1,0 +1,14 @@
+[2023-07-16T03:18:54.884+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: main_dag.tsk2 manual__2023-07-16T03:18:51.035571+00:00 [queued]>
+[2023-07-16T03:18:54.894+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: main_dag.tsk2 manual__2023-07-16T03:18:51.035571+00:00 [queued]>
+[2023-07-16T03:18:54.894+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 1
+[2023-07-16T03:18:54.909+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): tsk2> on 2023-07-16 03:18:51.035571+00:00
+[2023-07-16T03:18:54.914+0000] {standard_task_runner.py:57} INFO - Started process 240 to run task
+[2023-07-16T03:18:54.916+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'main_dag', 'tsk2', 'manual__2023-07-16T03:18:51.035571+00:00', '--job-id', '428', '--raw', '--subdir', 'DAGS_FOLDER/main_dag.py', '--cfg-path', '/tmp/tmp7wf5e3lx']
+[2023-07-16T03:18:54.918+0000] {standard_task_runner.py:85} INFO - Job 428: Subtask tsk2
+[2023-07-16T03:18:54.961+0000] {task_command.py:410} INFO - Running <TaskInstance: main_dag.tsk2 manual__2023-07-16T03:18:51.035571+00:00 [running]> on host 75cbd5457fb2
+[2023-07-16T03:18:55.237+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='main_dag' AIRFLOW_CTX_TASK_ID='tsk2' AIRFLOW_CTX_EXECUTION_DATE='2023-07-16T03:18:51.035571+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-07-16T03:18:51.035571+00:00'
+[2023-07-16T03:18:55.239+0000] {logging_mixin.py:150} INFO - Error in networkx import
+[2023-07-16T03:18:55.239+0000] {python.py:183} INFO - Done. Returned value was: None
+[2023-07-16T03:18:55.251+0000] {taskinstance.py:1350} INFO - Marking task as SUCCESS. dag_id=main_dag, task_id=tsk2, execution_date=20230716T031851, start_date=20230716T031854, end_date=20230716T031855
+[2023-07-16T03:18:55.329+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 0
+[2023-07-16T03:18:55.346+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check
