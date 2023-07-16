@@ -1,0 +1,23 @@
+[2023-07-16T01:31:08.436+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: main_dag.tsk1 manual__2023-07-16T01:31:07.293875+00:00 [queued]>
+[2023-07-16T01:31:08.445+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: main_dag.tsk1 manual__2023-07-16T01:31:07.293875+00:00 [queued]>
+[2023-07-16T01:31:08.446+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 1
+[2023-07-16T01:31:08.461+0000] {taskinstance.py:1327} INFO - Executing <Task(BashOperator): tsk1> on 2023-07-16 01:31:07.293875+00:00
+[2023-07-16T01:31:08.465+0000] {standard_task_runner.py:57} INFO - Started process 2218 to run task
+[2023-07-16T01:31:08.469+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'main_dag', 'tsk1', 'manual__2023-07-16T01:31:07.293875+00:00', '--job-id', '415', '--raw', '--subdir', 'DAGS_FOLDER/main_dag.py', '--cfg-path', '/tmp/tmpsk33prii']
+[2023-07-16T01:31:08.471+0000] {standard_task_runner.py:85} INFO - Job 415: Subtask tsk1
+[2023-07-16T01:31:08.514+0000] {task_command.py:410} INFO - Running <TaskInstance: main_dag.tsk1 manual__2023-07-16T01:31:07.293875+00:00 [running]> on host 3be1cdcf9db5
+[2023-07-16T01:31:08.611+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='main_dag' AIRFLOW_CTX_TASK_ID='tsk1' AIRFLOW_CTX_EXECUTION_DATE='2023-07-16T01:31:07.293875+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-07-16T01:31:07.293875+00:00'
+[2023-07-16T01:31:08.613+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2023-07-16T01:31:08.614+0000] {subprocess.py:75} INFO - Running command: ['/bin/bash', '-c', 'docker exec ***-project_***-scheduler_1 pip install networkx']
+[2023-07-16T01:31:08.625+0000] {subprocess.py:86} INFO - Output:
+[2023-07-16T01:31:08.786+0000] {subprocess.py:93} INFO - Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
+[2023-07-16T01:31:08.789+0000] {subprocess.py:97} INFO - Command exited with return code 1
+[2023-07-16T01:31:08.800+0000] {taskinstance.py:1824} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/bash.py", line 211, in execute
+    f"Bash command failed. The command returned a non-zero exit code {result.exit_code}."
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2023-07-16T01:31:08.803+0000] {taskinstance.py:1350} INFO - Marking task as FAILED. dag_id=main_dag, task_id=tsk1, execution_date=20230716T013107, start_date=20230716T013108, end_date=20230716T013108
+[2023-07-16T01:31:08.816+0000] {standard_task_runner.py:109} ERROR - Failed to execute job 415 for task tsk1 (Bash command failed. The command returned a non-zero exit code 1.; 2218)
+[2023-07-16T01:31:08.840+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 1
+[2023-07-16T01:31:08.858+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check

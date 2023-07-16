@@ -1,0 +1,13 @@
+[2023-07-16T01:22:54.873+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: main_dag.tsk1 manual__2023-07-16T01:22:53.569471+00:00 [queued]>
+[2023-07-16T01:22:54.883+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: main_dag.tsk1 manual__2023-07-16T01:22:53.569471+00:00 [queued]>
+[2023-07-16T01:22:54.883+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 1
+[2023-07-16T01:22:54.897+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): tsk1> on 2023-07-16 01:22:53.569471+00:00
+[2023-07-16T01:22:54.901+0000] {standard_task_runner.py:57} INFO - Started process 1988 to run task
+[2023-07-16T01:22:54.904+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'main_dag', 'tsk1', 'manual__2023-07-16T01:22:53.569471+00:00', '--job-id', '413', '--raw', '--subdir', 'DAGS_FOLDER/main_dag.py', '--cfg-path', '/tmp/tmp9fi0ahom']
+[2023-07-16T01:22:54.906+0000] {standard_task_runner.py:85} INFO - Job 413: Subtask tsk1
+[2023-07-16T01:22:54.949+0000] {task_command.py:410} INFO - Running <TaskInstance: main_dag.tsk1 manual__2023-07-16T01:22:53.569471+00:00 [running]> on host 3be1cdcf9db5
+[2023-07-16T01:22:55.030+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='main_dag' AIRFLOW_CTX_TASK_ID='tsk1' AIRFLOW_CTX_EXECUTION_DATE='2023-07-16T01:22:53.569471+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-07-16T01:22:53.569471+00:00'
+[2023-07-16T01:22:55.056+0000] {python.py:183} INFO - Done. Returned value was: None
+[2023-07-16T01:22:55.068+0000] {taskinstance.py:1350} INFO - Marking task as SUCCESS. dag_id=main_dag, task_id=tsk1, execution_date=20230716T012253, start_date=20230716T012254, end_date=20230716T012255
+[2023-07-16T01:22:55.116+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 0
+[2023-07-16T01:22:55.134+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check

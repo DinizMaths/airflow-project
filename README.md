@@ -38,4 +38,18 @@ Username: airflow
 Password: airflow
 ```
 
+em docker-compose.yaml
+```bash
 AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+```
+
+instalar em
+```bash
+docker exec -it airflow-project_airflow-scheduler_1 bash
+```
+
+```bash
+pip install wikipedia
+pip install networkx
+mkdir data/
+```

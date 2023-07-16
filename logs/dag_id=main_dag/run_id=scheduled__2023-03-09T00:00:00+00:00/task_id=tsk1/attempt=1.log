@@ -1,0 +1,13 @@
+[2023-07-16T01:02:51.770+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: main_dag.tsk1 scheduled__2023-03-09T00:00:00+00:00 [queued]>
+[2023-07-16T01:02:51.789+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: main_dag.tsk1 scheduled__2023-03-09T00:00:00+00:00 [queued]>
+[2023-07-16T01:02:51.789+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 1
+[2023-07-16T01:02:51.814+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): tsk1> on 2023-03-09 00:00:00+00:00
+[2023-07-16T01:02:51.824+0000] {standard_task_runner.py:57} INFO - Started process 948 to run task
+[2023-07-16T01:02:51.828+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'main_dag', 'tsk1', 'scheduled__2023-03-09T00:00:00+00:00', '--job-id', '141', '--raw', '--subdir', 'DAGS_FOLDER/main_dag.py', '--cfg-path', '/tmp/tmp1iozib0y']
+[2023-07-16T01:02:51.831+0000] {standard_task_runner.py:85} INFO - Job 141: Subtask tsk1
+[2023-07-16T01:02:51.906+0000] {task_command.py:410} INFO - Running <TaskInstance: main_dag.tsk1 scheduled__2023-03-09T00:00:00+00:00 [running]> on host 3be1cdcf9db5
+[2023-07-16T01:02:52.026+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='main_dag' AIRFLOW_CTX_TASK_ID='tsk1' AIRFLOW_CTX_EXECUTION_DATE='2023-03-09T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2023-03-09T00:00:00+00:00'
+[2023-07-16T01:02:52.106+0000] {python.py:183} INFO - Done. Returned value was: None
+[2023-07-16T01:02:52.124+0000] {taskinstance.py:1350} INFO - Marking task as SUCCESS. dag_id=main_dag, task_id=tsk1, execution_date=20230309T000000, start_date=20230716T010251, end_date=20230716T010252
+[2023-07-16T01:02:52.161+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 0
+[2023-07-16T01:02:52.201+0000] {taskinstance.py:2653} INFO - 1 downstream tasks scheduled from follow-on schedule check

@@ -1,0 +1,28 @@
+[2023-07-16T01:06:52.002+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: main_dag.tsk2 scheduled__2023-07-07T00:00:00+00:00 [queued]>
+[2023-07-16T01:06:52.022+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: main_dag.tsk2 scheduled__2023-07-07T00:00:00+00:00 [queued]>
+[2023-07-16T01:06:52.023+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 1
+[2023-07-16T01:06:52.053+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): tsk2> on 2023-07-07 00:00:00+00:00
+[2023-07-16T01:06:52.063+0000] {standard_task_runner.py:57} INFO - Started process 1566 to run task
+[2023-07-16T01:06:52.069+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'main_dag', 'tsk2', 'scheduled__2023-07-07T00:00:00+00:00', '--job-id', '398', '--raw', '--subdir', 'DAGS_FOLDER/main_dag.py', '--cfg-path', '/tmp/tmpf3_cd2fs']
+[2023-07-16T01:06:52.071+0000] {standard_task_runner.py:85} INFO - Job 398: Subtask tsk2
+[2023-07-16T01:06:52.152+0000] {task_command.py:410} INFO - Running <TaskInstance: main_dag.tsk2 scheduled__2023-07-07T00:00:00+00:00 [running]> on host 3be1cdcf9db5
+[2023-07-16T01:06:52.301+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='main_dag' AIRFLOW_CTX_TASK_ID='tsk2' AIRFLOW_CTX_EXECUTION_DATE='2023-07-07T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2023-07-07T00:00:00+00:00'
+[2023-07-16T01:06:52.334+0000] {taskinstance.py:1824} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 181, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 198, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/main_dag.py", line 72, in get_data
+    nx.write_graphml(g, "/data/raw_graph.graphml")
+  File "/home/airflow/.local/lib/python3.7/site-packages/networkx/utils/decorators.py", line 795, in func
+    return argmap._lazy_compile(__wrapper)(*args, **kwargs)
+  File "<class 'networkx.utils.decorators.argmap'> compilation 5", line 3, in argmap_write_graphml_lxml_1
+    from contextlib import contextmanager
+  File "/home/airflow/.local/lib/python3.7/site-packages/networkx/utils/decorators.py", line 188, in _open_file
+    fobj = _dispatch_dict[ext](path, mode=mode)
+FileNotFoundError: [Errno 2] No such file or directory: '/data/raw_graph.graphml'
+[2023-07-16T01:06:52.347+0000] {taskinstance.py:1350} INFO - Marking task as FAILED. dag_id=main_dag, task_id=tsk2, execution_date=20230707T000000, start_date=20230716T010652, end_date=20230716T010652
+[2023-07-16T01:06:52.369+0000] {standard_task_runner.py:109} ERROR - Failed to execute job 398 for task tsk2 ([Errno 2] No such file or directory: '/data/raw_graph.graphml'; 1566)
+[2023-07-16T01:06:52.405+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 1
+[2023-07-16T01:06:52.431+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check
