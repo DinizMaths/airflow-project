@@ -17,6 +17,10 @@ To run this project you will need to install [Docker](https://www.docker.com/pro
 
 <img src="img/architecture.png">
 
+the plots are independent to each other, so we have they starting at the same time:
+
+<img src="img/gantt.png">
+
 ## Running
 
 1. Open the terminal or command prompt
@@ -33,7 +37,7 @@ To run this project you will need to install [Docker](https://www.docker.com/pro
     ```bash
     docker-compose up -d
     ```
-6. Go to [Link](https://localhost:8080)
+6. Go to [Link](http://localhost:8080/)
 7. Enter the credential:
     ```bash
     Username: airflow

@@ -1,0 +1,64 @@
+[2023-07-17T18:11:19.001+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: main_dag.make_figures.plot_all_together manual__2023-07-17T18:02:19.400705+00:00 [queued]>
+[2023-07-17T18:11:19.018+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: main_dag.make_figures.plot_all_together manual__2023-07-17T18:02:19.400705+00:00 [queued]>
+[2023-07-17T18:11:19.019+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 1
+[2023-07-17T18:11:19.043+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): make_figures.plot_all_together> on 2023-07-17 18:02:19.400705+00:00
+[2023-07-17T18:11:19.052+0000] {standard_task_runner.py:57} INFO - Started process 3167 to run task
+[2023-07-17T18:11:19.056+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'main_dag', 'make_figures.plot_all_together', 'manual__2023-07-17T18:02:19.400705+00:00', '--job-id', '743', '--raw', '--subdir', 'DAGS_FOLDER/main_dag.py', '--cfg-path', '/tmp/tmp9tsg4gey']
+[2023-07-17T18:11:19.067+0000] {standard_task_runner.py:85} INFO - Job 743: Subtask make_figures.plot_all_together
+[2023-07-17T18:11:19.163+0000] {task_command.py:410} INFO - Running <TaskInstance: main_dag.make_figures.plot_all_together manual__2023-07-17T18:02:19.400705+00:00 [running]> on host 78942c037002
+[2023-07-17T18:11:19.295+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='main_dag' AIRFLOW_CTX_TASK_ID='make_figures.plot_all_together' AIRFLOW_CTX_EXECUTION_DATE='2023-07-17T18:02:19.400705+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-07-17T18:02:19.400705+00:00'
+[2023-07-17T18:11:20.736+0000] {font_manager.py:1443} INFO - generated new fontManager
+[2023-07-17T18:12:27.775+0000] {local_task_job_runner.py:115} ERROR - Received SIGTERM. Terminating subprocesses
+[2023-07-17T18:12:27.809+0000] {process_utils.py:135} INFO - Sending Signals.SIGTERM to group 3167. PIDs of all processes in the group: [3167]
+[2023-07-17T18:12:27.815+0000] {process_utils.py:86} INFO - Sending the signal Signals.SIGTERM to group 3167
+[2023-07-17T18:12:27.815+0000] {taskinstance.py:1517} ERROR - Received SIGTERM. Terminating subprocesses.
+[2023-07-17T18:12:27.832+0000] {taskinstance.py:1824} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 181, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 198, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/main_dag.py", line 206, in all_together_figure
+    plt.savefig("figures/alltogether.png", transparent=True, dpi=600, bbox_inches="tight")
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/pyplot.py", line 977, in savefig
+    res = fig.savefig(*args, **kwargs)
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/figure.py", line 3058, in savefig
+    self.canvas.print_figure(fname, **kwargs)
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/backend_bases.py", line 2325, in print_figure
+    **kwargs)
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/backend_bases.py", line 1648, in wrapper
+    return func(*args, **kwargs)
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/_api/deprecation.py", line 415, in wrapper
+    return func(*inner_args, **inner_kwargs)
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/backends/backend_agg.py", line 540, in print_png
+    FigureCanvasAgg.draw(self)
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/backends/backend_agg.py", line 436, in draw
+    self.figure.draw(self.renderer)
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/artist.py", line 74, in draw_wrapper
+    result = draw(artist, renderer, *args, **kwargs)
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/artist.py", line 51, in draw_wrapper
+    return draw(artist, renderer)
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/figure.py", line 2846, in draw
+    renderer, self, artists, self.suppressComposite)
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/image.py", line 132, in _draw_list_compositing_images
+    a.draw(renderer)
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/artist.py", line 51, in draw_wrapper
+    return draw(artist, renderer)
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/axes/_base.py", line 3092, in draw
+    renderer, self, artists, self.figure.suppressComposite)
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/image.py", line 132, in _draw_list_compositing_images
+    a.draw(renderer)
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/artist.py", line 51, in draw_wrapper
+    return draw(artist, renderer)
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/text.py", line 735, in draw
+    ismath=ismath, mtext=mtext)
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/backends/backend_agg.py", line 237, in draw_text
+    font.set_text(s, 0, flags=flags)
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/models/taskinstance.py", line 1519, in signal_handler
+    raise AirflowException("Task received SIGTERM signal")
+airflow.exceptions.AirflowException: Task received SIGTERM signal
+[2023-07-17T18:12:27.866+0000] {taskinstance.py:1350} INFO - Marking task as FAILED. dag_id=main_dag, task_id=make_figures.plot_all_together, execution_date=20230717T180219, start_date=20230717T181119, end_date=20230717T181227
+[2023-07-17T18:12:27.892+0000] {standard_task_runner.py:109} ERROR - Failed to execute job 743 for task make_figures.plot_all_together (Task received SIGTERM signal; 3167)
+[2023-07-17T18:12:27.951+0000] {process_utils.py:79} INFO - Process psutil.Process(pid=3167, status='terminated', exitcode=1, started='18:11:18') (3167) terminated with exit code 1
+[2023-07-17T18:12:27.962+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 143
+[2023-07-17T18:12:28.005+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check

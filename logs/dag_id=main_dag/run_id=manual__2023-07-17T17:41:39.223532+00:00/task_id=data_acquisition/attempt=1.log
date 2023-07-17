@@ -1,0 +1,45 @@
+[2023-07-17T17:41:47.938+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: main_dag.data_acquisition manual__2023-07-17T17:41:39.223532+00:00 [queued]>
+[2023-07-17T17:41:47.947+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: main_dag.data_acquisition manual__2023-07-17T17:41:39.223532+00:00 [queued]>
+[2023-07-17T17:41:47.948+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 1
+[2023-07-17T17:41:47.961+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): data_acquisition> on 2023-07-17 17:41:39.223532+00:00
+[2023-07-17T17:41:47.965+0000] {standard_task_runner.py:57} INFO - Started process 2423 to run task
+[2023-07-17T17:41:47.968+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'main_dag', 'data_acquisition', 'manual__2023-07-17T17:41:39.223532+00:00', '--job-id', '730', '--raw', '--subdir', 'DAGS_FOLDER/main_dag.py', '--cfg-path', '/tmp/tmp7qqoee0h']
+[2023-07-17T17:41:47.971+0000] {standard_task_runner.py:85} INFO - Job 730: Subtask data_acquisition
+[2023-07-17T17:41:48.013+0000] {task_command.py:410} INFO - Running <TaskInstance: main_dag.data_acquisition manual__2023-07-17T17:41:39.223532+00:00 [running]> on host 78942c037002
+[2023-07-17T17:41:48.109+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='main_dag' AIRFLOW_CTX_TASK_ID='data_acquisition' AIRFLOW_CTX_EXECUTION_DATE='2023-07-17T17:41:39.223532+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-07-17T17:41:39.223532+00:00'
+[2023-07-17T17:42:41.927+0000] {logging_mixin.py:150} WARNING - /home/***/.local/lib/python3.7/site-packages/wikipedia/wikipedia.py:389 GuessedAtParserWarning: No parser was explicitly specified, so I'm using the best available HTML parser for this system ("lxml"). This usually isn't a problem, but if you run this code on another system, or in a different virtual environment, it may use a different parser and behave differently.
+
+The code that caused this warning is on line 389 of the file /home/***/.local/lib/python3.7/site-packages/wikipedia/wikipedia.py. To get rid of this warning, pass the additional argument 'features="lxml"' to the BeautifulSoup constructor.
+[2023-07-17T17:48:25.373+0000] {taskinstance.py:1824} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 181, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 198, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/main_dag.py", line 91, in data_acquisition
+    nx.write_yaml(graph, f"data/{kwargs['filename']}")
+  File "/home/airflow/.local/lib/python3.7/site-packages/networkx/__init__.py", line 44, in __getattr__
+    "\nwrite_yaml has been removed from NetworkX, please use `yaml`\n"
+ImportError: 
+write_yaml has been removed from NetworkX, please use `yaml`
+directly:
+
+    import yaml
+
+    with open('path_for_yaml_output', 'w') as fh:
+        yaml.dump(G_to_be_yaml, path_for_yaml_output, **kwds)
+
+This message will be removed in NetworkX 3.0.
+[2023-07-17T17:48:25.381+0000] {taskinstance.py:1350} INFO - Marking task as FAILED. dag_id=main_dag, task_id=data_acquisition, execution_date=20230717T174139, start_date=20230717T174147, end_date=20230717T174825
+[2023-07-17T17:48:25.396+0000] {standard_task_runner.py:109} ERROR - Failed to execute job 730 for task data_acquisition (
+write_yaml has been removed from NetworkX, please use `yaml`
+directly:
+
+    import yaml
+
+    with open('path_for_yaml_output', 'w') as fh:
+        yaml.dump(G_to_be_yaml, path_for_yaml_output, **kwds)
+
+This message will be removed in NetworkX 3.0.; 2423)
+[2023-07-17T17:48:25.434+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 1
+[2023-07-17T17:48:25.463+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check

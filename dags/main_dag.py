@@ -4,15 +4,37 @@ from airflow.operators.bash_operator   import BashOperator
 from airflow.utils.task_group          import TaskGroup
 from datetime import datetime, timedelta
 
-import json
 
-
-DEPENDENCIES = [
+SEARCH_ARTICLE = "Graph neural network"
+LIBREARIES = [
   "networkx",
   "matplotlib",
   "scipy",
-  "seaborn"
+  "seaborn",
+  "wikipedia"
 ]
+STOPS = (
+  "International Standard Serial Number",
+  "International Standard Book Number",
+  "National Diet Library",
+  "International Standard Name Identifier",
+  "International Standard Book Number (Identifier)",
+  "Pubmed Identifier",
+  "Pubmed Central",
+  "Digital Object Identifier",
+  "Arxiv",
+  "Proc Natl Acad Sci Usa",
+  "Bibcode",
+  "Library Of Congress Control Number",
+  "Jstor",
+  "Doi (Identifier)",
+  "Isbn (Identifier)",
+  "Pmid (Identifier)",
+  "Arxiv (Identifier)",
+  "Bibcode (Identifier)",
+  "S2Cid (Identifier)",
+  "Issn (Identifier)"
+)
 
 default_args = {
   "start_date": datetime(2023, 1, 1),
@@ -33,48 +55,102 @@ def install_libraries_command(**kwargs):
 
 def data_acquisition(**kwargs):
   import networkx as nx
+  import wikipedia
 
-  graph = nx.Graph()
+  todo_lst = [(0, SEARCH_ARTICLE)]
+  todo_set = set(SEARCH_ARTICLE)
+  done_set = set()
 
-  graph.add_edges_from([
-    ('a','d'),
-    ('b','e'),
-    ('c','e'),
-    ('d','i'),
-    ('e','i'),
-    ('f','h'),
-    ('g','h'),
-    ('h','i'),('h','j'),
-    ('i','l'),
-    ('j','n'),
-    ('l','m'),('l','n'),('l','k'),('l','o'),
-    ('m','u'),
-    ('n','k'),('n','o'),('n','s'),
-    ('o','k'),('o','p'),('o','s'),
-    ('p','k'),('p','s'),
-    ('k','s'),('k','u'),
-    ('q','s'),
-    ('r','s'),
-    ('s','u')
-  ])
+  graph = nx.DiGraph()
+  layer, page = todo_lst[0]
 
-  nx.write_graphml(graph, f"data/{kwargs['file_name']}.graphml")
+  while layer < 2:
+    del todo_lst[0]
 
-def preprocess_data(**kwargs):
+    done_set.add(page)
+
+    try:
+      wiki = wikipedia.page(page)
+    except:
+      layer, page = todo_lst[0]
+
+      continue
+
+    for link in wiki.links:
+      link = link.title()
+
+      if link not in STOPS and not link.startswith("List Of"):
+        if link not in todo_set and link not in done_set:
+          todo_lst.append((layer + 1, link))
+          todo_set.add(link)
+
+        graph.add_edge(page, link)
+        
+    layer, page = todo_lst[0]
+
+  nx.write_adjlist(graph, f"data/{kwargs['filename']}")
+
+def remove_plural(**kwargs):
   import networkx as nx
 
-  graph = nx.read_graphml(f"data/{kwargs['read_file_name']}.graphml")
+  graph = nx.read_adjlist(f"data/{kwargs['read_filename']}")
 
-  for n, d in graph.nodes(data=True):
-    graph.nodes[n]["class"] = graph.degree(n)
+  duplicates = [(node, node + "s") for node in graph if node + "s" in graph]
 
-  nx.write_graphml(graph, f"data/{kwargs['write_file_name']}.graphml")
+  for dup in duplicates:
+    graph = nx.contracted_nodes(graph, *dup, self_loops=False)
+  
+  nx.write_adjlist(graph, f"data/{kwargs['write_filename']}")
+
+def remove_hyphen(**kwargs):
+  import networkx as nx
+
+  graph = nx.read_adjlist(f"data/{kwargs['read_filename']}")
+
+  duplicates = [(x, y) for x, y in [(node, node.replace("-", " ")) for node in graph] if x != y and y in graph]
+
+  for dup in duplicates:
+    graph = nx.contracted_nodes(graph, *dup, self_loops=False)
+
+  nx.write_adjlist(graph, f"data/{kwargs['write_filename']}")
+
+def remove_selfloop(**kwargs):
+  import networkx as nx
+
+  graph = nx.read_adjlist(f"data/{kwargs['read_filename']}")
+
+  graph.remove_edges_from(nx.selfloop_edges(graph))
+
+  nx.write_adjlist(graph, f"data/{kwargs['write_filename']}")
+
+def set_contraction(**kwargs):
+  import networkx as nx
+
+  graph = nx.read_adjlist(f"data/{kwargs['read_filename']}")
+
+  nx.set_node_attributes(graph, 0, "contraction")
+  nx.set_edge_attributes(graph, 0, "contraction")
+
+  nx.write_adjlist(graph, f"data/{kwargs['write_filename']}")
+
+def filter_nodes_by_degree_percentage(**kwargs):
+  import networkx as nx
+
+  graph = nx.read_adjlist(f"data/{kwargs['read_filename']}")
+
+  degrees        = dict(graph.degree())
+  sorted_nodes   = sorted(degrees, key=lambda x: degrees[x], reverse=True)
+  num_nodes      = int(len(graph) * (kwargs["percentage"] / 100))
+  filtered_nodes = sorted_nodes[:num_nodes]
+  filtered_graph = graph.subgraph(filtered_nodes)
+  
+  nx.write_adjlist(filtered_graph, f"data/{kwargs['write_filename']}")
 
 def all_together_figure(**kwargs):
   import networkx as nx
   import matplotlib.pyplot as plt
 
-  graph = nx.read_graphml(f"data/{kwargs['file_name']}.graphml")
+  graph = nx.read_adjlist(f"data/{kwargs['filename']}")
 
   fig, ax = plt.subplots(2, 2, figsize=(10, 8))
 
@@ -130,7 +206,7 @@ def count_pdf_figure(**kwargs):
   import matplotlib.pyplot as plt
   import seaborn as sns
 
-  graph = nx.read_graphml(f"data/{kwargs['file_name']}.graphml")
+  graph = nx.read_adjlist(f"data/{kwargs['filename']}")
 
   degree_sequence = sorted([d for n, d in graph.degree()], reverse=True)  
 
@@ -159,7 +235,7 @@ def count_cdf_figure(**kwargs):
   import matplotlib.pyplot as plt
   import seaborn as sns
 
-  graph = nx.read_graphml(f"data/{kwargs['file_name']}.graphml")
+  graph = nx.read_adjlist(f"data/{kwargs['filename']}")
 
   degree_sequence = sorted([d for n, d in graph.degree()], reverse=True)  
 
@@ -189,7 +265,7 @@ def correlation_figure(**kwargs):
   import seaborn as sns
   import pandas as pd
 
-  graph = nx.read_graphml(f"data/{kwargs['file_name']}.graphml")
+  graph = nx.read_adjlist(f"data/{kwargs['filename']}")
 
   bc = pd.Series(nx.betweenness_centrality(graph))
   dc = pd.Series(nx.degree_centrality(graph))
@@ -219,7 +295,7 @@ def k_core_shell_figure(**kwargs):
   import matplotlib.pyplot as plt
   import seaborn as sns
 
-  graph = nx.read_graphml(f"data/{kwargs['file_name']}.graphml")
+  graph = nx.read_adjlist(f"data/{kwargs['filename']}")
   
   fig, ax = plt.subplots(1, 1, figsize=(10, 8))
 
@@ -244,68 +320,112 @@ def k_core_shell_figure(**kwargs):
 
 
 with DAG(dag_id="main_dag", description="This is the main DAG", default_args=default_args) as dag:
-  task1 = BashOperator(task_id="install_libraries", bash_command=install_libraries_command(libraries=DEPENDENCIES))
+  task1 = BashOperator(
+    task_id="install_libraries", 
+    bash_command=install_libraries_command(libraries=LIBREARIES)
+  )
+
+  task2 = PythonOperator(
+    task_id="data_acquisition", 
+    python_callable=data_acquisition, 
+    op_kwargs={
+      "filename": "raw_graph.adjlist"
+    }
+  )
 
   with TaskGroup("preprocessing") as group:
-    task2 = PythonOperator(
-      task_id="data_acquisition", 
-      python_callable=data_acquisition, 
-      op_kwargs={
-        "file_name": "raw_graph"
-      }
-    )
-
     task3 = PythonOperator(
-      task_id="preprocess_data", 
-      python_callable=preprocess_data,  
+      task_id="remove_plural", 
+      python_callable=remove_plural,  
       op_kwargs={
-        "read_file_name": "raw_graph", 
-        "write_file_name": "preprocessed_graph"
+        "read_filename":  "raw_graph.adjlist", 
+        "write_filename": "graph_wo_plural.adjlist"
       }
     )
 
-  with TaskGroup("make_figures") as group:
     task4 = PythonOperator(
-      task_id="plot_all_together", 
-      python_callable=all_together_figure, 
+      task_id="remove_hyphen", 
+      python_callable=remove_hyphen,  
       op_kwargs={
-        "file_name": "preprocessed_graph"
+        "read_filename":  "graph_wo_plural.adjlist", 
+        "write_filename": "graph_wo_plural_hyphen.adjlist"
       }
     )
 
     task5 = PythonOperator(
-      task_id="plot_count_pdf", 
-      python_callable=count_pdf_figure,
+      task_id="remove_selfloop", 
+      python_callable=remove_selfloop,  
       op_kwargs={
-        "file_name": "preprocessed_graph"
+        "read_filename":  "graph_wo_plural_hyphen.adjlist", 
+        "write_filename": "graph_wo_plural_hyphen_selfloop.adjlist"
       }
     )
 
     task6 = PythonOperator(
-      task_id="plot_count_cdf", 
-      python_callable=count_cdf_figure,
+      task_id="set_contraction", 
+      python_callable=set_contraction,  
       op_kwargs={
-        "file_name": "preprocessed_graph"
+        "read_filename":  "graph_wo_plural_hyphen_selfloop.adjlist", 
+        "write_filename": "graph_w_contraction_wo_plural_hyphen_selfloop.adjlist"
       }
     )
 
     task7 = PythonOperator(
-      task_id="plot_correlation", 
-      python_callable=correlation_figure,
+      task_id="filter_nodes_by_degree_percentage", 
+      python_callable=filter_nodes_by_degree_percentage,  
       op_kwargs={
-        "file_name": "preprocessed_graph"
+        "read_filename":  "graph_w_contraction_wo_plural_hyphen_selfloop.adjlist", 
+        "write_filename": "graph_preprocessed.adjlist",
+        "percentage": 10
       }
     )
 
+  with TaskGroup("make_figures") as group:
     task8 = PythonOperator(
+      task_id="plot_all_together", 
+      python_callable=all_together_figure, 
+      op_kwargs={
+        "filename": "graph_preprocessed.adjlist"
+      }
+    )
+
+    task9 = PythonOperator(
+      task_id="plot_count_pdf", 
+      python_callable=count_pdf_figure,
+      op_kwargs={
+        "filename": "graph_preprocessed.adjlist"
+      }
+    )
+
+    task10 = PythonOperator(
+      task_id="plot_count_cdf", 
+      python_callable=count_cdf_figure,
+      op_kwargs={
+        "filename": "graph_preprocessed.adjlist"
+      }
+    )
+
+    task11 = PythonOperator(
+      task_id="plot_correlation", 
+      python_callable=correlation_figure,
+      op_kwargs={
+        "filename": "graph_preprocessed.adjlist"
+      }
+    )
+
+    task12 = PythonOperator(
       task_id="plot_k_core_shell", 
       python_callable=k_core_shell_figure,
       op_kwargs={
-        "file_name": "preprocessed_graph"
+        "filename": "graph_preprocessed.adjlist"
       }
     )
 
 
   task1.set_downstream(task2)
   task2.set_downstream(task3)
-  task3.set_downstream([task4, task5, task6, task7, task8])
+  task3.set_downstream(task4)
+  task4.set_downstream(task5)
+  task5.set_downstream(task6)
+  task6.set_downstream(task7)
+  task7.set_downstream([task8, task9, task10, task11, task12])

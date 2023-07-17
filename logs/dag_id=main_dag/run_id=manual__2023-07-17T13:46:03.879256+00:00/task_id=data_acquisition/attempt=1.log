@@ -1,0 +1,17 @@
+[2023-07-17T13:46:11.759+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: main_dag.data_acquisition manual__2023-07-17T13:46:03.879256+00:00 [queued]>
+[2023-07-17T13:46:11.771+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: main_dag.data_acquisition manual__2023-07-17T13:46:03.879256+00:00 [queued]>
+[2023-07-17T13:46:11.771+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 1
+[2023-07-17T13:46:11.789+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): data_acquisition> on 2023-07-17 13:46:03.879256+00:00
+[2023-07-17T13:46:11.794+0000] {standard_task_runner.py:57} INFO - Started process 881 to run task
+[2023-07-17T13:46:11.796+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'main_dag', 'data_acquisition', 'manual__2023-07-17T13:46:03.879256+00:00', '--job-id', '696', '--raw', '--subdir', 'DAGS_FOLDER/main_dag.py', '--cfg-path', '/tmp/tmpb2noadiy']
+[2023-07-17T13:46:11.799+0000] {standard_task_runner.py:85} INFO - Job 696: Subtask data_acquisition
+[2023-07-17T13:46:11.843+0000] {task_command.py:410} INFO - Running <TaskInstance: main_dag.data_acquisition manual__2023-07-17T13:46:03.879256+00:00 [running]> on host 46d66aa08365
+[2023-07-17T13:46:11.936+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='main_dag' AIRFLOW_CTX_TASK_ID='data_acquisition' AIRFLOW_CTX_EXECUTION_DATE='2023-07-17T13:46:03.879256+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-07-17T13:46:03.879256+00:00'
+[2023-07-17T13:47:48.238+0000] {logging_mixin.py:150} WARNING - /home/***/.local/lib/python3.7/site-packages/wikipedia/wikipedia.py:389 GuessedAtParserWarning: No parser was explicitly specified, so I'm using the best available HTML parser for this system ("lxml"). This usually isn't a problem, but if you run this code on another system, or in a different virtual environment, it may use a different parser and behave differently.
+
+The code that caused this warning is on line 389 of the file /home/***/.local/lib/python3.7/site-packages/wikipedia/wikipedia.py. To get rid of this warning, pass the additional argument 'features="lxml"' to the BeautifulSoup constructor.
+[2023-07-17T14:15:38.041+0000] {local_task_job_runner.py:292} WARNING - State of this instance has been externally set to failed. Terminating instance.
+[2023-07-17T14:15:38.044+0000] {process_utils.py:135} INFO - Sending Signals.SIGTERM to group 881. PIDs of all processes in the group: [881]
+[2023-07-17T14:15:38.045+0000] {process_utils.py:86} INFO - Sending the signal Signals.SIGTERM to group 881
+[2023-07-17T14:15:38.045+0000] {taskinstance.py:1517} ERROR - Received SIGTERM. Terminating subprocesses.
+[2023-07-17T14:15:38.137+0000] {process_utils.py:79} INFO - Process psutil.Process(pid=881, status='terminated', exitcode=0, started='13:46:10') (881) terminated with exit code 0

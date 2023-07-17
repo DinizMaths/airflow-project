@@ -1,0 +1,34 @@
+[2023-07-17T08:41:35.897+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: main_dag.preprocessing.data_acquisition manual__2023-07-17T08:41:27.786321+00:00 [queued]>
+[2023-07-17T08:41:35.906+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: main_dag.preprocessing.data_acquisition manual__2023-07-17T08:41:27.786321+00:00 [queued]>
+[2023-07-17T08:41:35.906+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 1
+[2023-07-17T08:41:35.921+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): preprocessing.data_acquisition> on 2023-07-17 08:41:27.786321+00:00
+[2023-07-17T08:41:35.926+0000] {standard_task_runner.py:57} INFO - Started process 4186 to run task
+[2023-07-17T08:41:35.929+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'main_dag', 'preprocessing.data_acquisition', 'manual__2023-07-17T08:41:27.786321+00:00', '--job-id', '636', '--raw', '--subdir', 'DAGS_FOLDER/main_dag.py', '--cfg-path', '/tmp/tmp_79siiv0']
+[2023-07-17T08:41:35.932+0000] {standard_task_runner.py:85} INFO - Job 636: Subtask preprocessing.data_acquisition
+[2023-07-17T08:41:35.975+0000] {task_command.py:410} INFO - Running <TaskInstance: main_dag.preprocessing.data_acquisition manual__2023-07-17T08:41:27.786321+00:00 [running]> on host 0314a966ffa9
+[2023-07-17T08:41:36.067+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='main_dag' AIRFLOW_CTX_TASK_ID='preprocessing.data_acquisition' AIRFLOW_CTX_EXECUTION_DATE='2023-07-17T08:41:27.786321+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-07-17T08:41:27.786321+00:00'
+[2023-07-17T08:43:24.362+0000] {logging_mixin.py:150} WARNING - /home/***/.local/lib/python3.7/site-packages/wikipedia/wikipedia.py:389 GuessedAtParserWarning: No parser was explicitly specified, so I'm using the best available HTML parser for this system ("lxml"). This usually isn't a problem, but if you run this code on another system, or in a different virtual environment, it may use a different parser and behave differently.
+
+The code that caused this warning is on line 389 of the file /home/***/.local/lib/python3.7/site-packages/wikipedia/wikipedia.py. To get rid of this warning, pass the additional argument 'features="lxml"' to the BeautifulSoup constructor.
+[2023-07-17T08:43:24.387+0000] {logging_mixin.py:150} INFO - Could not load Casp
+[2023-07-17T08:43:45.286+0000] {logging_mixin.py:150} INFO - Could not load Computer Vision
+[2023-07-17T08:43:56.643+0000] {logging_mixin.py:150} INFO - Could not load Dbscan
+[2023-07-17T08:43:59.978+0000] {logging_mixin.py:150} INFO - Could not load Data Mining
+[2023-07-17T08:44:57.682+0000] {logging_mixin.py:150} INFO - Could not load Github
+[2023-07-17T08:45:03.002+0000] {logging_mixin.py:150} INFO - Could not load Google
+[2023-07-17T08:45:27.271+0000] {logging_mixin.py:150} INFO - Could not load Identity Matrix
+[2023-07-17T08:46:57.740+0000] {logging_mixin.py:150} INFO - Could not load Machine Learning
+[2023-07-17T08:47:47.404+0000] {logging_mixin.py:150} INFO - Could not load Multilayer Perceptron
+[2023-07-17T08:47:57.748+0000] {logging_mixin.py:150} INFO - Could not load Np-Hard
+[2023-07-17T08:49:26.023+0000] {logging_mixin.py:150} INFO - Could not load Pmc (Identifier)
+[2023-07-17T08:49:38.003+0000] {logging_mixin.py:150} INFO - Could not load Petar Veličković
+[2023-07-17T08:49:42.824+0000] {logging_mixin.py:150} INFO - Could not load Physics
+[2023-07-17T08:49:48.055+0000] {logging_mixin.py:150} INFO - Could not load Pixel
+[2023-07-17T08:50:50.822+0000] {logging_mixin.py:150} INFO - Could not load Relu
+[2023-07-17T08:52:03.282+0000] {logging_mixin.py:150} INFO - Could not load Social Graph
+[2023-07-17T08:52:29.691+0000] {logging_mixin.py:150} INFO - Could not load Tensorflow
+[2023-07-17T08:52:31.021+0000] {logging_mixin.py:150} INFO - Could not load Thomas Kipf
+[2023-07-17T08:52:50.801+0000] {python.py:183} INFO - Done. Returned value was: None
+[2023-07-17T08:52:50.813+0000] {taskinstance.py:1350} INFO - Marking task as SUCCESS. dag_id=main_dag, task_id=preprocessing.data_acquisition, execution_date=20230717T084127, start_date=20230717T084135, end_date=20230717T085250
+[2023-07-17T08:52:50.856+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 0
+[2023-07-17T08:52:50.888+0000] {taskinstance.py:2653} INFO - 1 downstream tasks scheduled from follow-on schedule check

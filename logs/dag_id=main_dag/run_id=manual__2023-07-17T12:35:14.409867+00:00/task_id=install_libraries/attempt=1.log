@@ -1,0 +1,29 @@
+[2023-07-17T12:35:15.966+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: main_dag.install_libraries manual__2023-07-17T12:35:14.409867+00:00 [queued]>
+[2023-07-17T12:35:15.974+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: main_dag.install_libraries manual__2023-07-17T12:35:14.409867+00:00 [queued]>
+[2023-07-17T12:35:15.974+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 1
+[2023-07-17T12:35:15.988+0000] {taskinstance.py:1327} INFO - Executing <Task(BashOperator): install_libraries> on 2023-07-17 12:35:14.409867+00:00
+[2023-07-17T12:35:15.992+0000] {standard_task_runner.py:57} INFO - Started process 183 to run task
+[2023-07-17T12:35:15.995+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'main_dag', 'install_libraries', 'manual__2023-07-17T12:35:14.409867+00:00', '--job-id', '674', '--raw', '--subdir', 'DAGS_FOLDER/main_dag.py', '--cfg-path', '/tmp/tmp_w_zpu0p']
+[2023-07-17T12:35:15.997+0000] {standard_task_runner.py:85} INFO - Job 674: Subtask install_libraries
+[2023-07-17T12:35:16.041+0000] {task_command.py:410} INFO - Running <TaskInstance: main_dag.install_libraries manual__2023-07-17T12:35:14.409867+00:00 [running]> on host d3ee5a861c36
+[2023-07-17T12:35:16.145+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='main_dag' AIRFLOW_CTX_TASK_ID='install_libraries' AIRFLOW_CTX_EXECUTION_DATE='2023-07-17T12:35:14.409867+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-07-17T12:35:14.409867+00:00'
+[2023-07-17T12:35:16.146+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2023-07-17T12:35:16.146+0000] {subprocess.py:75} INFO - Running command: ['/bin/bash', '-c', 'pip install networkx==2.8.8 matplotlib scipy seaborn wikipedia lxml==4.9.1']
+[2023-07-17T12:35:16.157+0000] {subprocess.py:86} INFO - Output:
+[2023-07-17T12:35:17.290+0000] {subprocess.py:93} INFO - Defaulting to user installation because normal site-packages is not writeable
+[2023-07-17T12:35:17.790+0000] {subprocess.py:93} INFO - ERROR: Ignored the following versions that require a different python version: 2.7 Requires-Python >=3.8; 2.7.1 Requires-Python >=3.8; 2.7rc1 Requires-Python >=3.8; 2.8 Requires-Python >=3.8; 2.8.1 Requires-Python >=3.8; 2.8.1rc1 Requires-Python >=3.8; 2.8.2 Requires-Python >=3.8; 2.8.3 Requires-Python >=3.8; 2.8.4 Requires-Python >=3.8; 2.8.5 Requires-Python >=3.8; 2.8.6 Requires-Python >=3.8; 2.8.7 Requires-Python >=3.8; 2.8.8 Requires-Python >=3.8; 2.8rc1 Requires-Python >=3.8; 3.0 Requires-Python >=3.8; 3.0b1 Requires-Python >=3.8; 3.0rc1 Requires-Python >=3.8; 3.1 Requires-Python >=3.8; 3.1rc0 Requires-Python >=3.8
+[2023-07-17T12:35:17.790+0000] {subprocess.py:93} INFO - ERROR: Could not find a version that satisfies the requirement networkx==2.8.8 (from versions: 0.34, 0.35, 0.35.1, 0.36, 0.37, 0.99, 1.0rc1, 1.0, 1.0.1, 1.1, 1.2rc1, 1.2, 1.3rc1, 1.3, 1.4rc1, 1.4, 1.5rc1, 1.5, 1.6rc1, 1.6, 1.7rc1, 1.7, 1.8rc1, 1.8, 1.8.1, 1.9rc1, 1.9, 1.9.1, 1.10rc2, 1.10, 1.11rc1, 1.11rc2, 1.11, 2.0, 2.1, 2.2rc1, 2.2, 2.3rc3, 2.3rc4, 2.3, 2.4rc1, 2.4rc2, 2.4, 2.5rc1, 2.5, 2.5.1, 2.6rc1, 2.6rc2, 2.6, 2.6.1, 2.6.2, 2.6.3)
+[2023-07-17T12:35:17.790+0000] {subprocess.py:93} INFO - ERROR: No matching distribution found for networkx==2.8.8
+[2023-07-17T12:35:17.911+0000] {subprocess.py:93} INFO - 
+[2023-07-17T12:35:17.911+0000] {subprocess.py:93} INFO - [notice] A new release of pip is available: 23.1.2 -> 23.2
+[2023-07-17T12:35:17.911+0000] {subprocess.py:93} INFO - [notice] To update, run: python -m pip install --upgrade pip
+[2023-07-17T12:35:18.002+0000] {subprocess.py:97} INFO - Command exited with return code 1
+[2023-07-17T12:35:18.022+0000] {taskinstance.py:1824} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/bash.py", line 211, in execute
+    f"Bash command failed. The command returned a non-zero exit code {result.exit_code}."
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2023-07-17T12:35:18.025+0000] {taskinstance.py:1350} INFO - Marking task as FAILED. dag_id=main_dag, task_id=install_libraries, execution_date=20230717T123514, start_date=20230717T123515, end_date=20230717T123518
+[2023-07-17T12:35:18.038+0000] {standard_task_runner.py:109} ERROR - Failed to execute job 674 for task install_libraries (Bash command failed. The command returned a non-zero exit code 1.; 183)
+[2023-07-17T12:35:18.056+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 1
+[2023-07-17T12:35:18.112+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check

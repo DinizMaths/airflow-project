@@ -11783,3 +11783,17 @@ airflow.exceptions.DuplicateTaskIdFound: Task id 'make_figures.plot_count_cdf' h
 [2023-07-16T23:58:00.742+0000] {logging_mixin.py:150} INFO - [2023-07-16T23:58:00.742+0000] {dag.py:2742} INFO - Sync 1 DAGs
 [2023-07-16T23:58:00.765+0000] {logging_mixin.py:150} INFO - [2023-07-16T23:58:00.765+0000] {dag.py:3508} INFO - Setting next_dagrun for main_dag to 2023-07-16T00:00:00+00:00, run_after=2023-07-17T00:00:00+00:00
 [2023-07-16T23:58:00.787+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/main_dag.py took 0.091 seconds
+[2023-07-16T23:58:30.938+0000] {processor.py:157} INFO - Started process (PID=284) to work on /opt/airflow/dags/main_dag.py
+[2023-07-16T23:58:30.942+0000] {processor.py:826} INFO - Processing file /opt/airflow/dags/main_dag.py for tasks to queue
+[2023-07-16T23:58:30.942+0000] {logging_mixin.py:150} INFO - [2023-07-16T23:58:30.942+0000] {dagbag.py:541} INFO - Filling up the DagBag from /opt/airflow/dags/main_dag.py
+[2023-07-16T23:58:30.954+0000] {processor.py:836} INFO - DAG(s) dict_keys(['main_dag']) retrieved from /opt/airflow/dags/main_dag.py
+[2023-07-16T23:58:30.982+0000] {logging_mixin.py:150} INFO - [2023-07-16T23:58:30.982+0000] {dag.py:2742} INFO - Sync 1 DAGs
+[2023-07-16T23:58:31.005+0000] {logging_mixin.py:150} INFO - [2023-07-16T23:58:31.005+0000] {dag.py:3508} INFO - Setting next_dagrun for main_dag to 2023-07-16T00:00:00+00:00, run_after=2023-07-17T00:00:00+00:00
+[2023-07-16T23:58:31.025+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/main_dag.py took 0.090 seconds
+[2023-07-16T23:59:01.114+0000] {processor.py:157} INFO - Started process (PID=296) to work on /opt/airflow/dags/main_dag.py
+[2023-07-16T23:59:01.115+0000] {processor.py:826} INFO - Processing file /opt/airflow/dags/main_dag.py for tasks to queue
+[2023-07-16T23:59:01.116+0000] {logging_mixin.py:150} INFO - [2023-07-16T23:59:01.115+0000] {dagbag.py:541} INFO - Filling up the DagBag from /opt/airflow/dags/main_dag.py
+[2023-07-16T23:59:01.126+0000] {processor.py:836} INFO - DAG(s) dict_keys(['main_dag']) retrieved from /opt/airflow/dags/main_dag.py
+[2023-07-16T23:59:01.153+0000] {logging_mixin.py:150} INFO - [2023-07-16T23:59:01.152+0000] {dag.py:2742} INFO - Sync 1 DAGs
+[2023-07-16T23:59:01.177+0000] {logging_mixin.py:150} INFO - [2023-07-16T23:59:01.177+0000] {dag.py:3508} INFO - Setting next_dagrun for main_dag to 2023-07-16T00:00:00+00:00, run_after=2023-07-17T00:00:00+00:00
+[2023-07-16T23:59:01.198+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/main_dag.py took 0.086 seconds
