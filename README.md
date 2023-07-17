@@ -17,7 +17,7 @@ To run this project you will need to install [Docker](https://www.docker.com/pro
 
 <img src="img/architecture.png">
 
-the plots are independent to each other, so we have they starting at the same time:
+The plots are independent to each other, so we have they starting at the same time:
 
 <img src="img/gantt.png">
 
