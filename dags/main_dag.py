@@ -325,6 +325,14 @@ def k_core_shell_figure(**kwargs):
   plt.axis("off")
   plt.savefig("figures/k-core_sociopatterns.png", transparent=True, dpi=600)
 
+# === CONVERT ===
+def adjlist_to_graphml(**kwargs):
+  import networkx as nx
+
+  graph = nx.read_adjlist(f"data/{kwargs['read_filename']}")
+
+  nx.write_adjlist(graph, f"data/{kwargs['write_filename']}")
+
 
 with DAG(dag_id="main_dag", description="This is the main DAG", default_args=default_args) as dag:
   task1 = BashOperator(
@@ -379,16 +387,25 @@ with DAG(dag_id="main_dag", description="This is the main DAG", default_args=def
     )
 
     task7 = PythonOperator(
+      task_id="adjlist_to_graphml", 
+      python_callable=adjlist_to_graphml,  
+      op_kwargs={
+        "read_filename":  "graph_w_contraction_wo_plural_hyphen_selfloop.adjlist", 
+        "write_filename": "complete_graph.graphml"
+      }
+    )
+
+    task8 = PythonOperator(
       task_id="filter_nodes_by_degree_percentage", 
       python_callable=filter_nodes_by_degree_percentage,  
       op_kwargs={
         "read_filename":  "graph_w_contraction_wo_plural_hyphen_selfloop.adjlist", 
         "write_filename": "graph_filtered.adjlist",
-        "percentage": 10
+        "percentage": 30
       }
     )
 
-    task8 = PythonOperator(
+    task9 = PythonOperator(
       task_id="remove_nodes_with_zero_degree", 
       python_callable=remove_nodes_with_zero_degree,  
       op_kwargs={
@@ -398,7 +415,7 @@ with DAG(dag_id="main_dag", description="This is the main DAG", default_args=def
     )
 
   with TaskGroup("make_figures") as group:
-    task9 = PythonOperator(
+    task10 = PythonOperator(
       task_id="plot_all_together", 
       python_callable=all_together_figure, 
       op_kwargs={
@@ -406,7 +423,7 @@ with DAG(dag_id="main_dag", description="This is the main DAG", default_args=def
       }
     )
 
-    task10 = PythonOperator(
+    task11 = PythonOperator(
       task_id="plot_count_pdf", 
       python_callable=count_pdf_figure,
       op_kwargs={
@@ -414,7 +431,7 @@ with DAG(dag_id="main_dag", description="This is the main DAG", default_args=def
       }
     )
 
-    task11 = PythonOperator(
+    task12 = PythonOperator(
       task_id="plot_count_cdf", 
       python_callable=count_cdf_figure,
       op_kwargs={
@@ -422,7 +439,7 @@ with DAG(dag_id="main_dag", description="This is the main DAG", default_args=def
       }
     )
 
-    task12 = PythonOperator(
+    task13 = PythonOperator(
       task_id="plot_correlation", 
       python_callable=correlation_figure,
       op_kwargs={
@@ -430,20 +447,20 @@ with DAG(dag_id="main_dag", description="This is the main DAG", default_args=def
       }
     )
 
-    task13 = PythonOperator(
+    task14 = PythonOperator(
       task_id="plot_k_core_shell", 
       python_callable=k_core_shell_figure,
       op_kwargs={
         "filename": "graph_preprocessed.adjlist"
       }
     )
-
+  
 
   task1.set_downstream(task2)
   task2.set_downstream(task3)
   task3.set_downstream(task4)
   task4.set_downstream(task5)
   task5.set_downstream(task6)
-  task6.set_downstream(task7)
-  task7.set_downstream(task8)
-  task8.set_downstream([task9, task10, task11, task12, task13])
+  task6.set_downstream([task7, task8])
+  task8.set_downstream(task9)
+  task9.set_downstream([task10, task11, task12, task13, task14])

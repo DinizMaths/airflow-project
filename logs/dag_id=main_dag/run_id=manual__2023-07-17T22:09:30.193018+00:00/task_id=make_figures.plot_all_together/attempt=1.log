@@ -1,0 +1,38 @@
+[2023-07-17T22:21:47.766+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: main_dag.make_figures.plot_all_together manual__2023-07-17T22:09:30.193018+00:00 [queued]>
+[2023-07-17T22:21:47.779+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: main_dag.make_figures.plot_all_together manual__2023-07-17T22:09:30.193018+00:00 [queued]>
+[2023-07-17T22:21:47.779+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 1
+[2023-07-17T22:21:47.799+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): make_figures.plot_all_together> on 2023-07-17 22:09:30.193018+00:00
+[2023-07-17T22:21:47.805+0000] {standard_task_runner.py:57} INFO - Started process 525 to run task
+[2023-07-17T22:21:47.808+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'main_dag', 'make_figures.plot_all_together', 'manual__2023-07-17T22:09:30.193018+00:00', '--job-id', '831', '--raw', '--subdir', 'DAGS_FOLDER/main_dag.py', '--cfg-path', '/tmp/tmph_8duf6q']
+[2023-07-17T22:21:47.812+0000] {standard_task_runner.py:85} INFO - Job 831: Subtask make_figures.plot_all_together
+[2023-07-17T22:21:48.230+0000] {task_command.py:410} INFO - Running <TaskInstance: main_dag.make_figures.plot_all_together manual__2023-07-17T22:09:30.193018+00:00 [running]> on host 7f2063054a30
+[2023-07-17T22:21:48.508+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='main_dag' AIRFLOW_CTX_TASK_ID='make_figures.plot_all_together' AIRFLOW_CTX_EXECUTION_DATE='2023-07-17T22:09:30.193018+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-07-17T22:09:30.193018+00:00'
+[2023-07-17T22:21:50.444+0000] {font_manager.py:1443} INFO - generated new fontManager
+[2023-07-17T22:24:17.487+0000] {local_task_job_runner.py:115} ERROR - Received SIGTERM. Terminating subprocesses
+[2023-07-17T22:24:17.523+0000] {process_utils.py:135} INFO - Sending Signals.SIGTERM to group 525. PIDs of all processes in the group: [525]
+[2023-07-17T22:24:17.528+0000] {process_utils.py:86} INFO - Sending the signal Signals.SIGTERM to group 525
+[2023-07-17T22:24:17.529+0000] {taskinstance.py:1517} ERROR - Received SIGTERM. Terminating subprocesses.
+[2023-07-17T22:24:17.548+0000] {taskinstance.py:1824} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 181, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 198, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/main_dag.py", line 173, in all_together_figure
+    max([v for k, v in nx.betweenness_centrality(graph).items()])
+  File "/home/airflow/.local/lib/python3.7/site-packages/networkx/utils/decorators.py", line 795, in func
+    return argmap._lazy_compile(__wrapper)(*args, **kwargs)
+  File "<class 'networkx.utils.decorators.argmap'> compilation 18", line 5, in argmap_betweenness_centrality_14
+    import warnings
+  File "/home/airflow/.local/lib/python3.7/site-packages/networkx/algorithms/centrality/betweenness.py", line 136, in betweenness_centrality
+    betweenness, delta = _accumulate_basic(betweenness, S, P, sigma, s)
+  File "/home/airflow/.local/lib/python3.7/site-packages/networkx/algorithms/centrality/betweenness.py", line 314, in _accumulate_basic
+    delta = dict.fromkeys(S, 0)
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/models/taskinstance.py", line 1519, in signal_handler
+    raise AirflowException("Task received SIGTERM signal")
+airflow.exceptions.AirflowException: Task received SIGTERM signal
+[2023-07-17T22:24:17.563+0000] {taskinstance.py:1350} INFO - Marking task as FAILED. dag_id=main_dag, task_id=make_figures.plot_all_together, execution_date=20230717T220930, start_date=20230717T222147, end_date=20230717T222417
+[2023-07-17T22:24:17.592+0000] {standard_task_runner.py:109} ERROR - Failed to execute job 831 for task make_figures.plot_all_together (Task received SIGTERM signal; 525)
+[2023-07-17T22:24:17.623+0000] {process_utils.py:79} INFO - Process psutil.Process(pid=525, status='terminated', exitcode=1, started='22:21:47') (525) terminated with exit code 1
+[2023-07-17T22:24:17.630+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 143
+[2023-07-17T22:24:17.661+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check

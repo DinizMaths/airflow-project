@@ -1,0 +1,68 @@
+[2023-07-17T22:21:47.763+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: main_dag.make_figures.plot_correlation manual__2023-07-17T22:09:30.193018+00:00 [queued]>
+[2023-07-17T22:21:47.776+0000] {taskinstance.py:1103} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: main_dag.make_figures.plot_correlation manual__2023-07-17T22:09:30.193018+00:00 [queued]>
+[2023-07-17T22:21:47.777+0000] {taskinstance.py:1308} INFO - Starting attempt 1 of 1
+[2023-07-17T22:21:47.796+0000] {taskinstance.py:1327} INFO - Executing <Task(PythonOperator): make_figures.plot_correlation> on 2023-07-17 22:09:30.193018+00:00
+[2023-07-17T22:21:47.802+0000] {standard_task_runner.py:57} INFO - Started process 524 to run task
+[2023-07-17T22:21:47.805+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'main_dag', 'make_figures.plot_correlation', 'manual__2023-07-17T22:09:30.193018+00:00', '--job-id', '829', '--raw', '--subdir', 'DAGS_FOLDER/main_dag.py', '--cfg-path', '/tmp/tmpwkvaiqoh']
+[2023-07-17T22:21:47.807+0000] {standard_task_runner.py:85} INFO - Job 829: Subtask make_figures.plot_correlation
+[2023-07-17T22:21:48.232+0000] {task_command.py:410} INFO - Running <TaskInstance: main_dag.make_figures.plot_correlation manual__2023-07-17T22:09:30.193018+00:00 [running]> on host 7f2063054a30
+[2023-07-17T22:21:48.512+0000] {taskinstance.py:1547} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='main_dag' AIRFLOW_CTX_TASK_ID='make_figures.plot_correlation' AIRFLOW_CTX_EXECUTION_DATE='2023-07-17T22:09:30.193018+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-07-17T22:09:30.193018+00:00'
+[2023-07-17T22:21:50.649+0000] {font_manager.py:1443} INFO - generated new fontManager
+[2023-07-17T22:24:17.490+0000] {local_task_job_runner.py:115} ERROR - Received SIGTERM. Terminating subprocesses
+[2023-07-17T22:24:17.518+0000] {process_utils.py:135} INFO - Sending Signals.SIGTERM to group 524. PIDs of all processes in the group: [524]
+[2023-07-17T22:24:17.523+0000] {process_utils.py:86} INFO - Sending the signal Signals.SIGTERM to group 524
+[2023-07-17T22:24:17.523+0000] {taskinstance.py:1517} ERROR - Received SIGTERM. Terminating subprocesses.
+[2023-07-17T22:24:17.539+0000] {taskinstance.py:1824} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 181, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 198, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/main_dag.py", line 291, in correlation_figure
+    fig = sns.PairGrid(df)
+  File "/home/airflow/.local/lib/python3.7/site-packages/seaborn/axisgrid.py", line 1358, in __init__
+    self.tight_layout(pad=layout_pad)
+  File "/home/airflow/.local/lib/python3.7/site-packages/seaborn/axisgrid.py", line 118, in tight_layout
+    self._figure.tight_layout(*args, **kwargs)
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/figure.py", line 3238, in tight_layout
+    pad=pad, h_pad=h_pad, w_pad=w_pad, rect=rect)
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/tight_layout.py", line 325, in get_tight_layout_figure
+    pad=pad, h_pad=h_pad, w_pad=w_pad)
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/tight_layout.py", line 82, in _auto_adjust_subplotpars
+    bb += [ax.get_tightbbox(renderer, for_layout_only=True)]
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/axes/_base.py", line 4638, in get_tightbbox
+    renderer, for_layout_only=for_layout_only)
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/axis.py", line 1103, in get_tightbbox
+    ticks_to_draw = self._update_ticks()
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/axis.py", line 1047, in _update_ticks
+    major_ticks = self.get_major_ticks(len(major_locs))
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/axis.py", line 1375, in get_major_ticks
+    tick = self._get_tick(major=True)
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/axis.py", line 2322, in _get_tick
+    return YTick(self.axes, 0, major=major, **tick_kw)
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/axis.py", line 476, in __init__
+    super().__init__(*args, **kwargs)
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/axis.py", line 158, in __init__
+    markeredgecolor=color, markersize=size, markeredgewidth=width,
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/lines.py", line 370, in __init__
+    self.set_color(color)
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/lines.py", line 1030, in set_color
+    mcolors._check_color_like(color=color)
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/colors.py", line 129, in _check_color_like
+    if not is_color_like(v):
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/colors.py", line 114, in is_color_like
+    if _is_nth_color(c):
+  File "/home/airflow/.local/lib/python3.7/site-packages/matplotlib/colors.py", line 108, in _is_nth_color
+    return isinstance(c, str) and re.match(r"\AC[0-9]+\Z", c)
+  File "/usr/local/lib/python3.7/re.py", line 175, in match
+    return _compile(pattern, flags).match(string)
+  File "/usr/local/lib/python3.7/re.py", line 275, in _compile
+    if isinstance(flags, RegexFlag):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/models/taskinstance.py", line 1519, in signal_handler
+    raise AirflowException("Task received SIGTERM signal")
+airflow.exceptions.AirflowException: Task received SIGTERM signal
+[2023-07-17T22:24:17.567+0000] {taskinstance.py:1350} INFO - Marking task as FAILED. dag_id=main_dag, task_id=make_figures.plot_correlation, execution_date=20230717T220930, start_date=20230717T222147, end_date=20230717T222417
+[2023-07-17T22:24:17.605+0000] {standard_task_runner.py:109} ERROR - Failed to execute job 829 for task make_figures.plot_correlation (Task received SIGTERM signal; 524)
+[2023-07-17T22:24:17.657+0000] {process_utils.py:79} INFO - Process psutil.Process(pid=524, status='terminated', exitcode=1, started='22:21:47') (524) terminated with exit code 1
+[2023-07-17T22:24:17.659+0000] {local_task_job_runner.py:225} INFO - Task exited with return code 143
+[2023-07-17T22:24:17.679+0000] {taskinstance.py:2653} INFO - 0 downstream tasks scheduled from follow-on schedule check
