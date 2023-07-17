@@ -90,6 +90,7 @@ def data_acquisition(**kwargs):
 
   nx.write_adjlist(graph, f"data/{kwargs['filename']}")
 
+# === PREPROCESSING ===
 def remove_plural(**kwargs):
   import networkx as nx
 
@@ -142,9 +143,20 @@ def filter_nodes_by_degree_percentage(**kwargs):
   sorted_nodes   = sorted(degrees, key=lambda x: degrees[x], reverse=True)
   num_nodes      = int(len(graph) * (kwargs["percentage"] / 100))
   filtered_nodes = sorted_nodes[:num_nodes]
-  filtered_graph = graph.subgraph(filtered_nodes)
+  graph          = graph.subgraph(filtered_nodes)
   
-  nx.write_adjlist(filtered_graph, f"data/{kwargs['write_filename']}")
+  nx.write_adjlist(graph, f"data/{kwargs['write_filename']}")
+
+# === PLOT ===
+def remove_nodes_with_zero_degree(**kwargs):
+  import networkx as nx
+
+  graph = nx.read_adjlist(f"data/{kwargs['read_filename']}")
+
+  nodes_with_zero_degree = [node for node in graph.nodes() if graph.degree[node] == 0]
+  graph.remove_nodes_from(nodes_with_zero_degree)
+
+  nx.write_adjlist(graph, f"data/{kwargs['write_filename']}")
 
 def all_together_figure(**kwargs):
   import networkx as nx
@@ -177,11 +189,6 @@ def all_together_figure(**kwargs):
   nodes = nx.draw_networkx_nodes(graph, pos=pos, node_color=color_closeness,   cmap=plt.cm.jet, vmin=0, vmax=max_centrality, ax=ax[0,1])
   nodes = nx.draw_networkx_nodes(graph, pos=pos, node_color=color_betweenness, cmap=plt.cm.jet, vmin=0, vmax=max_centrality, ax=ax[1,0])
   nodes = nx.draw_networkx_nodes(graph, pos=pos, node_color=color_eigenvector, cmap=plt.cm.jet, vmin=0, vmax=max_centrality, ax=ax[1,1])
-
-  nx.draw_networkx_labels(graph, pos=pos, font_color='white', ax=ax[0,0])
-  nx.draw_networkx_labels(graph, pos=pos, font_color='white', ax=ax[0,1])
-  nx.draw_networkx_labels(graph, pos=pos, font_color='white', ax=ax[1,0])
-  nx.draw_networkx_labels(graph, pos=pos, font_color='white', ax=ax[1,1])
 
   ax[0,0].axis("off")
   ax[1,0].axis("off")
@@ -334,32 +341,33 @@ with DAG(dag_id="main_dag", description="This is the main DAG", default_args=def
   )
 
   with TaskGroup("preprocessing") as group:
-    task3 = PythonOperator(
-      task_id="remove_plural", 
-      python_callable=remove_plural,  
-      op_kwargs={
-        "read_filename":  "raw_graph.adjlist", 
-        "write_filename": "graph_wo_plural.adjlist"
-      }
-    )
+    with TaskGroup("remove_duplicates"):
+      task3 = PythonOperator(
+        task_id="remove_plural", 
+        python_callable=remove_plural,  
+        op_kwargs={
+          "read_filename":  "raw_graph.adjlist", 
+          "write_filename": "graph_wo_plural.adjlist"
+        }
+      )
 
-    task4 = PythonOperator(
-      task_id="remove_hyphen", 
-      python_callable=remove_hyphen,  
-      op_kwargs={
-        "read_filename":  "graph_wo_plural.adjlist", 
-        "write_filename": "graph_wo_plural_hyphen.adjlist"
-      }
-    )
+      task4 = PythonOperator(
+        task_id="remove_hyphen", 
+        python_callable=remove_hyphen,  
+        op_kwargs={
+          "read_filename":  "graph_wo_plural.adjlist", 
+          "write_filename": "graph_wo_plural_hyphen.adjlist"
+        }
+      )
 
-    task5 = PythonOperator(
-      task_id="remove_selfloop", 
-      python_callable=remove_selfloop,  
-      op_kwargs={
-        "read_filename":  "graph_wo_plural_hyphen.adjlist", 
-        "write_filename": "graph_wo_plural_hyphen_selfloop.adjlist"
-      }
-    )
+      task5 = PythonOperator(
+        task_id="remove_selfloop", 
+        python_callable=remove_selfloop,  
+        op_kwargs={
+          "read_filename":  "graph_wo_plural_hyphen.adjlist", 
+          "write_filename": "graph_wo_plural_hyphen_selfloop.adjlist"
+        }
+      )
 
     task6 = PythonOperator(
       task_id="set_contraction", 
@@ -375,13 +383,22 @@ with DAG(dag_id="main_dag", description="This is the main DAG", default_args=def
       python_callable=filter_nodes_by_degree_percentage,  
       op_kwargs={
         "read_filename":  "graph_w_contraction_wo_plural_hyphen_selfloop.adjlist", 
-        "write_filename": "graph_preprocessed.adjlist",
+        "write_filename": "graph_filtered.adjlist",
         "percentage": 10
       }
     )
 
-  with TaskGroup("make_figures") as group:
     task8 = PythonOperator(
+      task_id="remove_nodes_with_zero_degree", 
+      python_callable=remove_nodes_with_zero_degree,  
+      op_kwargs={
+        "read_filename":  "graph_filtered.adjlist", 
+        "write_filename": "graph_preprocessed.adjlist"
+      }
+    )
+
+  with TaskGroup("make_figures") as group:
+    task9 = PythonOperator(
       task_id="plot_all_together", 
       python_callable=all_together_figure, 
       op_kwargs={
@@ -389,7 +406,7 @@ with DAG(dag_id="main_dag", description="This is the main DAG", default_args=def
       }
     )
 
-    task9 = PythonOperator(
+    task10 = PythonOperator(
       task_id="plot_count_pdf", 
       python_callable=count_pdf_figure,
       op_kwargs={
@@ -397,7 +414,7 @@ with DAG(dag_id="main_dag", description="This is the main DAG", default_args=def
       }
     )
 
-    task10 = PythonOperator(
+    task11 = PythonOperator(
       task_id="plot_count_cdf", 
       python_callable=count_cdf_figure,
       op_kwargs={
@@ -405,7 +422,7 @@ with DAG(dag_id="main_dag", description="This is the main DAG", default_args=def
       }
     )
 
-    task11 = PythonOperator(
+    task12 = PythonOperator(
       task_id="plot_correlation", 
       python_callable=correlation_figure,
       op_kwargs={
@@ -413,7 +430,7 @@ with DAG(dag_id="main_dag", description="This is the main DAG", default_args=def
       }
     )
 
-    task12 = PythonOperator(
+    task13 = PythonOperator(
       task_id="plot_k_core_shell", 
       python_callable=k_core_shell_figure,
       op_kwargs={
@@ -428,4 +445,5 @@ with DAG(dag_id="main_dag", description="This is the main DAG", default_args=def
   task4.set_downstream(task5)
   task5.set_downstream(task6)
   task6.set_downstream(task7)
-  task7.set_downstream([task8, task9, task10, task11, task12])
+  task7.set_downstream(task8)
+  task8.set_downstream([task9, task10, task11, task12, task13])
