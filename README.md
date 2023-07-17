@@ -48,3 +48,7 @@ The plots are independent to each other, so we have they starting at the same ti
     ```bash
     docker-compose down
     ```
+
+# Video
+  
+[![Open in Loom](https://img.shields.io/badge/-Video-83DA77?style=flat-square&logo=loom)](https://www.loom.com/share/30bd4e03cb234e1fa0b2b844713147d5?sid=14a0d050-422e-44c1-8279-a19dc9512c52) Explanation about the project!

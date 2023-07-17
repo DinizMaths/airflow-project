@@ -94,7 +94,7 @@ def data_acquisition(**kwargs):
 def remove_plural(**kwargs):
   import networkx as nx
 
-  graph = nx.read_adjlist(f"data/{kwargs['read_filename']}")
+  graph = nx.read_adjlist(f"data/{kwargs['read_filename']}", create_using=nx.DiGraph())
 
   duplicates = [(node, node + "s") for node in graph if node + "s" in graph]
 
@@ -106,7 +106,7 @@ def remove_plural(**kwargs):
 def remove_hyphen(**kwargs):
   import networkx as nx
 
-  graph = nx.read_adjlist(f"data/{kwargs['read_filename']}")
+  graph = nx.read_adjlist(f"data/{kwargs['read_filename']}", create_using=nx.DiGraph())
 
   duplicates = [(x, y) for x, y in [(node, node.replace("-", " ")) for node in graph] if x != y and y in graph]
 
@@ -118,7 +118,7 @@ def remove_hyphen(**kwargs):
 def remove_selfloop(**kwargs):
   import networkx as nx
 
-  graph = nx.read_adjlist(f"data/{kwargs['read_filename']}")
+  graph = nx.read_adjlist(f"data/{kwargs['read_filename']}", create_using=nx.DiGraph())
 
   graph.remove_edges_from(nx.selfloop_edges(graph))
 
@@ -127,7 +127,7 @@ def remove_selfloop(**kwargs):
 def set_contraction(**kwargs):
   import networkx as nx
 
-  graph = nx.read_adjlist(f"data/{kwargs['read_filename']}")
+  graph = nx.read_adjlist(f"data/{kwargs['read_filename']}", create_using=nx.DiGraph())
 
   nx.set_node_attributes(graph, 0, "contraction")
   nx.set_edge_attributes(graph, 0, "contraction")
@@ -137,7 +137,7 @@ def set_contraction(**kwargs):
 def filter_nodes_by_degree_percentage(**kwargs):
   import networkx as nx
 
-  graph = nx.read_adjlist(f"data/{kwargs['read_filename']}")
+  graph = nx.read_adjlist(f"data/{kwargs['read_filename']}", create_using=nx.DiGraph())
 
   degrees        = dict(graph.degree())
   sorted_nodes   = sorted(degrees, key=lambda x: degrees[x], reverse=True)
@@ -151,7 +151,7 @@ def filter_nodes_by_degree_percentage(**kwargs):
 def remove_nodes_with_zero_degree(**kwargs):
   import networkx as nx
 
-  graph = nx.read_adjlist(f"data/{kwargs['read_filename']}")
+  graph = nx.read_adjlist(f"data/{kwargs['read_filename']}", create_using=nx.DiGraph())
 
   nodes_with_zero_degree = [node for node in graph.nodes() if graph.degree[node] == 0]
   graph.remove_nodes_from(nodes_with_zero_degree)
@@ -162,7 +162,7 @@ def all_together_figure(**kwargs):
   import networkx as nx
   import matplotlib.pyplot as plt
 
-  graph = nx.read_adjlist(f"data/{kwargs['filename']}")
+  graph = nx.read_adjlist(f"data/{kwargs['filename']}", create_using=nx.DiGraph())
 
   fig, ax = plt.subplots(2, 2, figsize=(10, 8))
 
@@ -206,14 +206,14 @@ def all_together_figure(**kwargs):
   sm   = plt.cm.ScalarMappable(cmap=plt.cm.jet, norm=plt.Normalize(vmin=0, vmax=max_centrality))
   cbar = plt.colorbar(sm, cax)
 
-  plt.savefig("figures/alltogether.png", transparent=True, dpi=600, bbox_inches="tight")
+  plt.savefig("figures/alltogether.png", dpi=600, bbox_inches="tight")
 
 def count_pdf_figure(**kwargs):
   import networkx as nx
   import matplotlib.pyplot as plt
   import seaborn as sns
 
-  graph = nx.read_adjlist(f"data/{kwargs['filename']}")
+  graph = nx.read_adjlist(f"data/{kwargs['filename']}", create_using=nx.DiGraph())
 
   degree_sequence = sorted([d for n, d in graph.degree()], reverse=True)  
 
@@ -235,14 +235,14 @@ def count_pdf_figure(**kwargs):
   ax.set_xlabel("Degree")
   ax2.set_ylabel("Probability")
 
-  plt.savefig("figures/probability_density_function.png", transparent=True, dpi=600, bbox_inches="tight")
+  plt.savefig("figures/probability_density_function.png", dpi=600, bbox_inches="tight")
 
 def count_cdf_figure(**kwargs):
   import networkx as nx
   import matplotlib.pyplot as plt
   import seaborn as sns
 
-  graph = nx.read_adjlist(f"data/{kwargs['filename']}")
+  graph = nx.read_adjlist(f"data/{kwargs['filename']}", create_using=nx.DiGraph())
 
   degree_sequence = sorted([d for n, d in graph.degree()], reverse=True)  
 
@@ -264,7 +264,7 @@ def count_cdf_figure(**kwargs):
   ax.set_xlabel("Degree")
   ax2.set_ylabel("Probability")
 
-  plt.savefig("figures/cumulative_density_function.png", transparent=True, dpi=600, bbox_inches="tight")
+  plt.savefig("figures/cumulative_density_function.png", dpi=600, bbox_inches="tight")
 
 def correlation_figure(**kwargs):
   import networkx as nx
@@ -272,7 +272,7 @@ def correlation_figure(**kwargs):
   import seaborn as sns
   import pandas as pd
 
-  graph = nx.read_adjlist(f"data/{kwargs['filename']}")
+  graph = nx.read_adjlist(f"data/{kwargs['filename']}", create_using=nx.DiGraph())
 
   bc = pd.Series(nx.betweenness_centrality(graph))
   dc = pd.Series(nx.degree_centrality(graph))
@@ -294,7 +294,7 @@ def correlation_figure(**kwargs):
   fig.map_lower(sns.kdeplot, cmap="Reds_r")
   fig.map_diag(sns.kdeplot, lw=2, legend=False)
 
-  plt.savefig("figures/all.png", transparent=True, dpi=800, bbox_inches="tight")
+  plt.savefig("figures/all.png", dpi=800, bbox_inches="tight")
 
 def k_core_shell_figure(**kwargs):
   import matplotlib.patches as mpatches
@@ -302,7 +302,7 @@ def k_core_shell_figure(**kwargs):
   import matplotlib.pyplot as plt
   import seaborn as sns
 
-  graph = nx.read_adjlist(f"data/{kwargs['filename']}")
+  graph = nx.read_adjlist(f"data/{kwargs['filename']}", create_using=nx.DiGraph())
   
   fig, ax = plt.subplots(1, 1, figsize=(10, 8))
 
@@ -323,15 +323,15 @@ def k_core_shell_figure(**kwargs):
   plt.legend(handles=[red_patch, blue_patch])
 
   plt.axis("off")
-  plt.savefig("figures/k-core_sociopatterns.png", transparent=True, dpi=600)
+  plt.savefig("figures/k-core_sociopatterns.png", dpi=600)
 
 # === CONVERT ===
 def adjlist_to_graphml(**kwargs):
   import networkx as nx
 
-  graph = nx.read_adjlist(f"data/{kwargs['read_filename']}")
+  graph = nx.read_adjlist(f"data/{kwargs['read_filename']}", create_using=nx.DiGraph())
 
-  nx.write_adjlist(graph, f"data/{kwargs['write_filename']}")
+  nx.write_graphml(graph, f"data/{kwargs['write_filename']}")
 
 
 with DAG(dag_id="main_dag", description="This is the main DAG", default_args=default_args) as dag:
