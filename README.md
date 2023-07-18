@@ -49,6 +49,26 @@ The plots are independent to each other, so we have they starting at the same ti
     docker-compose down
     ```
 
+# Results
+
+## All Together
+<img src="figures/alltogether.png">
+
+## CDF
+<img src="figures/cumulative_density_function.png">
+
+## PDF
+<img src="figures/probability_density_function.png">
+
+## Correlation
+<img src="figures/all.png">
+
+## K-core and K-shell
+<img src="figures/k-core_sociopatterns.png">
+
+## [Gephi](https://dinizmaths.github.io/netdeploy/network/)
+<img src="img/graph.png">
+
 # Video
   
 [![Open in Loom](https://img.shields.io/badge/-Video-83DA77?style=flat-square&logo=loom)](https://www.loom.com/share/30bd4e03cb234e1fa0b2b844713147d5?sid=14a0d050-422e-44c1-8279-a19dc9512c52) Explanation about the project!
